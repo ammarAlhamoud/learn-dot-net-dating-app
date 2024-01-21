@@ -19,7 +19,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.UseHttpsRedirection();
-app.UseAuthentication();
+app.UseAuthentication(); //order is important -> must be before UseAuthorization and before MapControllers
 app.UseAuthorization();
 app.MapControllers();
 
