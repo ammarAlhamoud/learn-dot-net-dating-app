@@ -4,25 +4,28 @@
       >Dating App</a
     >
 
-    @if (currenUser$ | async) {
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/members" routerLinkActive="active"
-          >Matches</a
-        >
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/lists" routerLinkActive="active"
-          >Lists</a
-        >
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/messages" routerLinkActive="active"
-          >Messages</a
-        >
-      </li>
+      @if (currenUser$ | async) {
+      <ng-container>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/members" routerLinkActive="active"
+            >Matches</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/lists" routerLinkActive="active"
+            >Lists</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/messages" routerLinkActive="active"
+            >Messages</a
+          >
+        </li>
+      </ng-container>
+      }
     </ul>
-    } @if (currenUser$ | async) {
+    @if (currenUser$ | async) {
     <ul class="navbar-nav">
       <li class="nav-item dropdown">
         <a
@@ -32,7 +35,7 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          Welcom user
+          Welcome {{ (currenUser$ | async)?.username | titlecase }}
         </a>
         <ul
           class="dropdown-menu dropdown-menu-dark"

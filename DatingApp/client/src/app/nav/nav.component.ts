@@ -3,20 +3,21 @@ import { FormsModule } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
 import { Observable, of } from 'rxjs';
 import { User } from '../_models/user';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [FormsModule, AsyncPipe, RouterModule],
+  imports: [FormsModule, AsyncPipe, RouterModule, TitleCasePipe],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss',
 })
 export class NavComponent implements OnInit {
   public model: any = {};
-  public currenUser$: Observable<User | null> = this.accountService.currenUser$;
+  public currenUser$: Observable<User | null> =
+    this.accountService.currentUser$;
 
   constructor(
     private accountService: AccountService,
@@ -25,7 +26,7 @@ export class NavComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.accountService.currenUser$.next(this.getCurrentUser());
+    this.accountService.currentUser$.next(this.getCurrentUser());
   }
 
   private getCurrentUser(): User | null {
@@ -34,7 +35,7 @@ export class NavComponent implements OnInit {
 
   public login(): void {
     this.accountService.login(this.model).subscribe({
-      next: () => {
+      next: (res) => {
         this.router.navigateByUrl('/members');
       },
       error: (error) => {

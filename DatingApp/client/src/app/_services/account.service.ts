@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { User } from '../_models/user';
 import { BehaviorSubject, map } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,12 @@ export class AccountService {
   private baseUrl = 'https://localhost:5001/api/';
   private localStorage?: Storage = undefined;
 
-  public currenUser$: BehaviorSubject<User | null> =
+  public currentUser$: BehaviorSubject<User | null> =
     new BehaviorSubject<User | null>(null);
 
   constructor(
     private http: HttpClient,
+    private toastr: ToastrService,
     @Inject(DOCUMENT) private document: Document
   ) {
     this.localStorage = this.document.defaultView?.localStorage;
@@ -25,6 +27,7 @@ export class AccountService {
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
       map((response: User) => {
         const user = response;
+        this.toastr.success('Login successful');
         this.setCurrentUser(user);
       })
     );
@@ -34,7 +37,7 @@ export class AccountService {
     if (this.localStorage) {
       this.localStorage.removeItem('user');
     }
-    this.currenUser$.next(null);
+    this.currentUser$.next(null);
   }
 
   public getCurrentUser(): User | null {
@@ -58,7 +61,7 @@ export class AccountService {
 
   private setCurrentUser(user: User | null) {
     if (user && this.localStorage) {
-      this.currenUser$.next(user);
+      this.currentUser$.next(user);
       this.localStorage.setItem('user', JSON.stringify(user));
     }
   }
