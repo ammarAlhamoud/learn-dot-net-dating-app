@@ -9,5 +9,6 @@ public class DataContext : DbContext
     {
     }
 
+    // create a table in the database for the AppUser class
     public DbSet<AppUser> Users { get; set; }
 }

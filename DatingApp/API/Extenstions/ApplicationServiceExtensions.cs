@@ -7,6 +7,7 @@ namespace API.Extensions;
 
 public static class ApplicationServiceExtensions
 {
+    // this keyword in front of IServiceCollection makes it an extension method
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
     {
 
@@ -18,7 +19,12 @@ public static class ApplicationServiceExtensions
         {
             opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
         });
+
+        // addScoped means that the service is created once per request within the scope
+        // this makes service injektion possible
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         return services;
     }
 }
