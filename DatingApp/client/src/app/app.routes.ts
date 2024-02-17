@@ -8,6 +8,8 @@ import { authGuard } from './_guard/auth.guard';
 import { TestErrorComponent } from './errors/test-error/test-error.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { preventUnsvaedChangesGuard } from './_guard/prevent-unsvaed-changes.guard';
 
 export const routes: Routes = [
   {
@@ -24,8 +26,13 @@ export const routes: Routes = [
         component: MembersListComponent,
       },
       {
-        path: 'members/:id',
+        path: 'members/:username',
         component: MemberDetailComponent,
+      },
+      {
+        path: 'member/edit',
+        component: MemberEditComponent,
+        canDeactivate: [preventUnsvaedChangesGuard],
       },
       {
         path: 'lists',

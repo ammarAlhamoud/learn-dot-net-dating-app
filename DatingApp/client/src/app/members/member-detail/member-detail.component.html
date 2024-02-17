@@ -1,1 +1,162 @@
-<p>member-detail works!</p>
+@if (member) {
+<div class="row">
+  <div class="col-4">
+    <div class="card">
+      <img
+        src="{{ member.photoUrl || './assets/user.png' }}"
+        alt="{{ member.knownAs }}"
+        class="card-img-top img-thumbnail"
+      />
+      <div class="card-body">
+        <div>
+          <strong>Location:</strong>
+          <p>{{ member.city }}, {{ member.country }}</p>
+        </div>
+        <div>
+          <strong>Age:</strong>
+          <p>{{ member.age }}</p>
+        </div>
+        <div>
+          <strong>Last active:</strong>
+          <p>{{ member.lastActive }}</p>
+        </div>
+        <div>
+          <strong>Member Since:</strong>
+          <p>{{ member.created }}</p>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="btn-group d-flex">
+          <button class="btn btn-primary">Like</button>
+          <button class="btn btn-success">Messages</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-8">
+    <ul class="nav nav-tabs nav-justified" role="tablist" id="detailss-tab">
+      <li class="nav-item" role="presentation">
+        <a
+          class="nav-link active"
+          id="justified-tab-0"
+          data-bs-toggle="tab"
+          href="#justified-tabpanel-0"
+          role="tab"
+          aria-controls="justified-tabpanel-0"
+          aria-selected="true"
+        >
+          About {{ member.knownAs }}
+        </a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a
+          class="nav-link"
+          id="justified-tab-1"
+          data-bs-toggle="tab"
+          href="#justified-tabpanel-1"
+          role="tab"
+          aria-controls="justified-tabpanel-1"
+          aria-selected="false"
+        >
+          Interests
+        </a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a
+          #photosTab
+          class="nav-link"
+          id="justified-tab-2"
+          data-bs-toggle="tab"
+          href="#justified-tabpanel-2"
+          role="tab"
+          aria-controls="justified-tabpanel-2"
+          aria-selected="false"
+        >
+          Photos
+        </a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a
+          class="nav-link"
+          id="justified-tab-3"
+          data-bs-toggle="tab"
+          href="#justified-tabpanel-3"
+          role="tab"
+          aria-controls="justified-tabpanel-3"
+          aria-selected="false"
+        >
+          Messages
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content pt-5" id="tab-content">
+      <div
+        class="tab-pane active"
+        id="justified-tabpanel-0"
+        role="tabpanel"
+        aria-labelledby="justified-tab-0"
+      >
+        <h4>Description</h4>
+        <p>{{ member.introduction }}</p>
+        <h4>Looking for</h4>
+        <p>{{ member.lookingFor }}</p>
+      </div>
+      <div
+        class="tab-pane"
+        id="justified-tabpanel-1"
+        role="tabpanel"
+        aria-labelledby="justified-tab-1"
+      >
+        <h4>Interests</h4>
+        <p>{{ member.interests }}</p>
+      </div>
+      <div
+        class="tab-pane"
+        id="justified-tabpanel-2"
+        role="tabpanel"
+        aria-labelledby="justified-tab-2"
+      >
+        <div id="carouselExampleFade" class="carousel slide carousel-fade">
+          <div class="carousel-inner">
+            @for (imgUrl of imagesUrl; track $index) {
+            <div class="carousel-item" [ngClass]="$index === 0 ? 'active' : ''">
+              <img
+                src="{{ imgUrl }}"
+                class="d-block w-100"
+                alt="{{ member.knownAs }}"
+              />
+            </div>
+            }
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleFade"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleFade"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="tab-pane"
+        id="justified-tabpanel-3"
+        role="tabpanel"
+        aria-labelledby="justified-tab-3"
+      >
+        <p>Messages will go here</p>
+      </div>
+    </div>
+  </div>
+</div>
+}

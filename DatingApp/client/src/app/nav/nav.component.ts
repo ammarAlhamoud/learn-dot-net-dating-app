@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { User } from '../_models/user';
 import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../_services/notification.service';
 
 @Component({
   selector: 'app-nav',
@@ -22,7 +22,7 @@ export class NavComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private router: Router,
-    private toastr: ToastrService
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {

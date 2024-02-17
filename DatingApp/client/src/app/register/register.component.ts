@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
-import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../_services/notification.service';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +17,7 @@ export class RegisterComponent {
 
   constructor(
     private accountService: AccountService,
-    private toastr: ToastrService
+    private notificationService: NotificationService
   ) {}
 
   public register() {
@@ -25,7 +25,7 @@ export class RegisterComponent {
       next: () => {
         this.cancel();
       },
-      error: (error) => this.toastr.error(error.error),
+      error: (error) => this.notificationService.error(error.error),
       complete: () => console.log('complete'),
     });
   }

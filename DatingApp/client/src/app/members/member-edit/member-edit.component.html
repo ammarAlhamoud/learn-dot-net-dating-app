@@ -1,0 +1,147 @@
+@if (member) {
+<div class="row">
+  <div class="col-4">
+    <h1>Your Profile</h1>
+  </div>
+  <div class="col-8">
+    @if (editForm.dirty) {
+    <div class="alert alert-info pb-0">
+      <p>
+        <strong>Information: </strong>You have made changes. Any unsaved changes
+        will be lost.
+      </p>
+    </div>
+    }
+  </div>
+  <div class="col-4">
+    <div class="card">
+      <img
+        src="{{ member.photoUrl || './assets/user.png' }}"
+        alt="{{ member.knownAs }}"
+        class="card-img-top img-thumbnail"
+      />
+      <div class="card-body">
+        <div>
+          <strong>Location:</strong>
+          <p>{{ member.city }}, {{ member.country }}</p>
+        </div>
+        <div>
+          <strong>Age:</strong>
+          <p>{{ member.age }}</p>
+        </div>
+        <div>
+          <strong>Last active:</strong>
+          <p>{{ member.lastActive }}</p>
+        </div>
+        <div>
+          <strong>Member Since:</strong>
+          <p>{{ member.created }}</p>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="btn-group d-flex">
+          <button
+            type="submit"
+            form="editForm"
+            class="btn btn-success col-12"
+            [disabled]="!editForm.dirty"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-8">
+    <ul class="nav nav-tabs nav-justified" role="tablist" id="detailss-tab">
+      <li class="nav-item" role="presentation">
+        <a
+          class="nav-link active"
+          id="justified-tab-0"
+          data-bs-toggle="tab"
+          href="#justified-tabpanel-0"
+          role="tab"
+          aria-controls="justified-tabpanel-0"
+          aria-selected="true"
+        >
+          About {{ member.knownAs }}
+        </a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a
+          class="nav-link"
+          id="justified-tab-1"
+          data-bs-toggle="tab"
+          href="#justified-tabpanel-1"
+          role="tab"
+          aria-controls="justified-tabpanel-1"
+          aria-selected="false"
+        >
+          Edit Photos
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content pt-5" id="tab-content">
+      <div
+        class="tab-pane active"
+        id="justified-tabpanel-0"
+        role="tabpanel"
+        aria-labelledby="justified-tab-0"
+      >
+        <form id="editForm" #editForm="ngForm" (ngSubmit)="updateMember()">
+          <h4 class="mt-2">Description</h4>
+          <textarea
+            class="from-control"
+            [(ngModel)]="member.introduction"
+            name="introduction"
+            rows="6"
+          ></textarea>
+          <h4 class="mt-2">Looking for</h4>
+
+          <textarea
+            class="from-control"
+            [(ngModel)]="member.lookingFor"
+            name="lookingFor"
+            rows="6"
+          ></textarea>
+          <h4 class="mt-2">Interests</h4>
+
+          <textarea
+            class="from-control"
+            [(ngModel)]="member.interests"
+            name="interests"
+            rows="6"
+          ></textarea>
+          <h4 class="mt-2">Location Details:</h4>
+          <div class="d-flex flex-row align-items-center">
+            <label for="city">City:</label>
+            <input
+              class="form-control mx-2"
+              [(ngModel)]="member.city"
+              name="city"
+              type="text"
+              placeholder="City"
+            />
+            <label for="country">Country:</label>
+            <input
+              class="form-control mx-2"
+              [(ngModel)]="member.country"
+              name="country"
+              type="text"
+              placeholder="Country"
+            />
+          </div>
+        </form>
+      </div>
+      <div
+        class="tab-pane"
+        id="justified-tabpanel-1"
+        role="tabpanel"
+        aria-labelledby="justified-tab-1"
+      >
+        <p>Photo edit will go here</p>
+      </div>
+    </div>
+  </div>
+</div>
+}

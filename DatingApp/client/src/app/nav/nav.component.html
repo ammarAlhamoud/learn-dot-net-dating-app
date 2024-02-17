@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
   <div class="container">
     <a class="navbar-brand" routerLink="/" routerLinkActive="active"
       >Dating App</a
@@ -46,7 +46,9 @@
           class="dropdown-menu dropdown-menu-dark"
           aria-labelledby="navbarDarkDropdownMenuLink"
         >
-          <li><a class="dropdown-item">Edit Profil</a></li>
+          <li>
+            <a routerLink="/member/edit" class="dropdown-item">Edit Profil</a>
+          </li>
           <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
         </ul>
       </li>
